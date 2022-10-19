@@ -2,9 +2,12 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Form from './components/Form';
-import type {RouteProp} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../App';
 
-const LoginScreen = (props: any) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+const LoginScreen = (props: Props) => {
   const [isPharmacyEnabled, setIsPharmacyEnabled] = useState(true);
   return (
     <SafeAreaView style={styles.safeAreaView}>

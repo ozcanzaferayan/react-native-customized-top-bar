@@ -1,14 +1,16 @@
 import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigation/HomeNavigation';
 
-const HomeScreen = ({navigation}: any) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Logined'>;
+
+const HomeScreen = (props: Props) => {
+  props;
   const [pharmacy, setPharmacy] = useState(null);
   useEffect(() => {
     AsyncStorage.getItem('loginResponse').then(value => {
-      console.log(value);
-      console.log('Token', JSON.parse(value).data.token);
       if (value) {
         fetch('', {
           method: 'GET',

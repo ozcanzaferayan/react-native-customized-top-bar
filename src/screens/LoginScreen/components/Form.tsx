@@ -1,20 +1,15 @@
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import React, {useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import Spacer from '../../../components/Spacer';
 import styles from './Form.styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {RootStackParamList} from '../../../../App';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type Props = {
   isPharmacyEnabled: boolean;
-  navigation: any;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Login', undefined>;
 };
 
 type FormData = {
@@ -38,7 +33,6 @@ const PharmacyForm = ({isPharmacyEnabled, navigation}: Props) => {
     control,
     handleSubmit,
     formState: {errors},
-    setError,
   } = useForm({
     defaultValues: {
       sapCode: '100001',
@@ -54,14 +48,13 @@ const PharmacyForm = ({isPharmacyEnabled, navigation}: Props) => {
         navigation.navigate('Home');
       }
     });
-  }, []);
+  }, [navigation]);
 
-  const onSubmit = ({sapCode, password, email}: FormData) => {
+  const onSubmit = ({sapCode, email}: FormData) => {
     const url =
       '' +
       new URLSearchParams({
         param1: isPharmacyEnabled ? sapCode : email,
-        // param2: password,
       });
     console.log(url);
     fetch(url).then(response =>
@@ -72,7 +65,7 @@ const PharmacyForm = ({isPharmacyEnabled, navigation}: Props) => {
           return;
         }
         AsyncStorage.setItem('loginResponse', JSON.stringify(json)).then(() => {
-          navigation.navigate('HomeNavigation');
+          navigation.navigate('Home');
         });
       }),
     );

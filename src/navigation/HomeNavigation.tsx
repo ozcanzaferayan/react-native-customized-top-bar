@@ -1,11 +1,16 @@
-import {View, Text, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import MyTabs from '../../MyTabs';
 
-const Tab = createMaterialTopTabNavigator();
+export type RootStackParamList = {
+  Logined: undefined;
+  Settings: undefined;
+};
+
+const Tab = createMaterialTopTabNavigator<RootStackParamList>();
 const HomeNavigation = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
